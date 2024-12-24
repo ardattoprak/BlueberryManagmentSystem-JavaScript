@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Main header section and navigation -->
+    <header class="main-header">
+        <div class="header-content">
+            <!-- Logo and title sction -->
+            <div class="logo-section">
+                <span class="logo">🏪</span>
+                <h1>Warehouse Management System</h1>
+            </div>
+            <!-- Main navigation menu --> 
+            <nav class="main-nav">
+                <a href="#farmers-section" class="nav-item active">
+                    <i class="nav-icon">👨‍🌾</i>
+                    Farmers
+                </a>
+                <a href="#purchases-section" class="nav-item">
+                    <i class="nav-icon">🛒</i>
+                    Purchases
+                </a>
+                <a href="#inventory-section" class="nav-item">
+                    <i class="nav-icon">📦</i>
+                    Inventory
+                </a>
+                <a href="#orders-section" class="nav-item">
+                    <i class="nav-icon">📝</i>
+                    Orders
+                </a>
+                <a href="#reports-section" class="nav-item">
+                    <i class="nav-icon">📊</i>
+                    Reports
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main content container -->
+    <div class="container">
+        <!-- Farmer management section -->
+        <div class="section" id="farmers-section">
+            <h2>Farmer Management</h2>
+            
+            <!-- Farmer registration form -->
+            <div class="farmer-form-container">
+                <form id="farmer-form">
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" id="farmer-name" required>
+                        <label>Phone:</label>
+                        <input type="tel" id="farmer-phone" required>
+                        <label>Email:</label>
+                        <input type="email" id="farmer-email" required>
+                        <label>City:</label>
+                        <input type="text" id="farmer-city" required>
+                    </div>
+                    <button type="submit">Add Farmer</button>
+                </form>
+            </div>
+        
+            <!-- Farmer search filters -->
+            <div class="filter-container">
+                <div class="filters">
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" id="farmer-filter-name" placeholder="Search by name..." class="filter-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="text" id="farmer-filter-email" placeholder="Search by email..." class="filter-input">
+                    </div>
+                    <div class="form-group">
+                        <label>City:</label>
+                        <input type="text" id="farmer-filter-city" placeholder="Search by city..." class="filter-input">
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Farmers data table -->
+            <table id="farmers-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>City</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- Purchase management section -->
+        <div class="section" id="purchases-section">
+            <h2>Purchase Management</h2>
+            <form id="purchase-form">
+                <div class="form-group">
+                    <label>Farmer:</label>
+                    <select id="farmer-select" required></select>
+                    <label>Purchase Date:</label>
+                    <input type="date" id="purchase-date" required>
+                    <!-- Product Type -->
+                    <label>Product Type:</label>
+                    <select id="product-type" required>
+                        <option value="">Select Product Type</option>
+                        <option value="fresh">Fresh</option>
+                        <option value="frozen">Frozen</option>
+                        <option value="organic">Organic</option>
+                    </select>
+                    <label>Quantity (kg):</label>
+                    <input type="number" id="purchase-quantity" min="0" step="0.01" required>
+                    <label>Price per kg:</label>
+                    <input type="number" id="purchase-price" min="0" step="0.01" required>
+                </div>
+                <button type="submit">Record Purchase</button>
+            </form>
+            <table id="purchases-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Farmer</th>
+                        <th>Product Type</th>
+                        <th>Quantity</th>
+                        <th>Price/kg</th>
+                        <th>Total</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <!-- Inventory management section -->
+        <div class="section" id="inventory-section">
+            <h2>Inventory Management</h2>
+            <!-- Inventory processing form -->
+            <form id="process-form">
+                <div class="form-group">
+                    <label>Source Type:</label>
+                    <select id="source-type" required>
+                        <option value="">Select Type</option>
+                        <option value="fresh">Fresh</option>
+                        <option value="frozen">Frozen</option>
+                        <option value="organic">Organic</option>
+                    </select>
+        
+                    <label>Target Category:</label>
+                    <select id="category-select" required>
+                        <option value="">Select Category</option>
+                        <option value="small">Small (100g)</option>
+                        <option value="medium">Medium (250g)</option>
+                        <option value="large">Large (500g)</option>
+                        <option value="extra-large">Extra Large (1kg)</option>
+                        <option value="family-pack">Family Pack (2kg)</option>
+                        <option value="bulk-pack">Bulk Pack (5kg)</option>
+                        <option value="premium">Premium</option>
+                    </select>
+                    <label>Number of Packages:</label>
+                    <input type="number" id="process-quantity" min="1" required>
+                    <div id="inventory-info" class="info-text"></div>
+                </div>
+                <button type="submit">Process Inventory</button>
+            </form>
+            <!-- Inventory status table -->
+            <table id="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Available Units</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <!-- Price management section -->
+            <h3 style="margin-top: 20px;">Price Management</h3>
+    <table id="price-table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Current Price ($)</th>
+                <th>Package Size</th>
+                <th>Price per kg</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+            <!-- Price edit section -->
+            <div id="price-edit-section" style="display: none;" class="edit-form">
+                <h3>Edit Price</h3>
+                <form id="price-edit-form">
+                    <div class="form-group">
+                        <label>Category:</label>
+                        <input type="text" id="price-category" readonly>
+                        <label>Package Size:</label>
+                        <input type="text" id="package-size" readonly>
+                        <label>New Price ($):</label>
+                        <input type="number" id="new-price" step="0.01" min="0.01" required>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="primary-btn">Save</button>
+                        <button type="button" onclick="closePriceEdit()" class="secondary-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Order management section -->
+        <div class="section" id="orders-section">
+            <h2>Order Management</h2>
+            <!-- Order creation form -->
+            <form id="order-form">
+                <div class="form-group">
+                    <label>Customer Name:</label>
+                    <input type="text" id="customer-name" required>
+                    <label>Contact:</label>
+                    <input type="tel" id="customer-contact" required>
+                    <label>Shipping Info:</label>
+                    <input type="text" id="shipping-info" required>
+                    <label>Order Date:</label>
+                    <input type="date" id="order-date" required>
+                    <label>Category:</label>
+                    <select id="order-category" required></select>
+                    <label>Quantity:</label>
+                    <input type="number" id="order-quantity" min="1" required>
+                </div>
+                <button type="submit">Create Order</button>
+            </form>
+            <!-- Orders data table -->
+            <table id="orders-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <!-- Reports section -->
+        <div class="section" id="reports-section">
+            <h2>Reports</h2>
+            <div class="report-controls">
+                <div class="form-group">
+                    <label>Report Type:</label>
+                    <select id="report-type" onchange="updateReportView()">
+                        <option value="financial">Financial Report</option>
+                        <option value="sales">Sales Report</option>
+                        <option value="inventory">Inventory Report</option>
+                    </select>
+                </div>
+                <div class="date-range-picker">
+                    <div class="form-group">
+                        <label>Date Range:</label>
+                        <input type="date" id="report-start-date">
+                        <input type="date" id="report-end-date">
+                    </div>
+                </div>
+                <div class="report-options">
+                    <div class="form-group">
+                        <label>Group By:</label>
+                        <select id="report-grouping">
+                            <option value="daily">Daily</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="report-actions">
+                <button onclick="generateReport()" class="primary-btn">Generate Report</button>
+                <button onclick="exportReportToCSV()" class="export-button">Export to CSV</button>
+            </div>
+            <!-- Report content -->
+            <div id="report-content">
+                <!-- Financial summary -->
+                <div id="financial-summary" class="report-section"></div>
+                <div id="report-table" class="report-section"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Order list section -->
+    <div class="section" id="order-list-section">
+        <h2>Order List</h2>
+        <!-- Order filters -->
+        <div class="filters">
+            <div class="form-group">
+                <label>Status:</label>
+                <select id="filter-status">
+                    <option value="">All Statuses</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Processed">Processed</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Customer Name:</label>
+                <input type="text" id="filter-customer" placeholder="Search by customer name">
+            </div>
+            <div class="form-group">
+                <label>Category:</label>
+                <select id="filter-category">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+        </div>
+        <!-- Filtered orders table -->
+        <table id="filtered-orders-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Contact</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <!-- Order edit section -->
+    <div class="section" id="edit-order-section" style="display: none;">
+        <h2>Edit Order</h2>
+        <form id="edit-order-form">
+            <div class="form-group">
+                <label>Customer Name:</label>
+                <input type="text" id="edit-customer-name" required>
+                <label>Contact:</label>
+                <input type="tel" id="edit-customer-contact" required>
+                <label>Shipping Info:</label>
+                <input type="text" id="edit-shipping-info" required>
+                <label>Order Date:</label>
+                <input type="date" id="edit-order-date" required>
+                <label>Category:</label>
+                <select id="edit-order-category" required></select>
+                <label>Quantity:</label>
+                <input type="number" id="edit-order-quantity" min="1" required>
+                <label>Status:</label>
+                <select id="edit-order-status" required>
+                    <option value="Pending">Pending</option>
+                    <option value="Processed">Processed</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+            </div>
+            <button type="submit">Save Changes</button>
+            <button type="button" onclick="this.closest('.section').style.display='none'">Cancel</button>
+        </form>
+    </div>
+    <!-- Purchase records report section -->
+    <div class="section" id="purchase-records-section">
+        <h2>Purchase Records Report</h2>
+        <!-- Purchase records form -->
+        <form id="purchase-records-form">
+            <div class="form-group">
+                <label>Sort Purchases By:</label>
+                <select id="sort-purchases" onchange="handlePurchaseSort(this.value)">
+                    <option value="">Select Sorting Criteria</option>
+                    <option value="date">Date</option>
+                    <option value="farmer">Farmer Name</option>
+                    <option value="type">Product Type</option>
+                    <option value="amount">Quantity</option>
+                    <option value="price">Price per kg</option>
+                    <option value="total">Total Cost</option>
+                </select>
+            </div>
+            <!-- Product type -->
+            <div class="form-group">
+                <label>Filter by Product Type:</label>
+                <select id="filter-product-type" onchange="handlePurchaseSort(document.getElementById('sort-purchases').value)">
+                    <option value="">All Types</option>
+                    <option value="fresh">Fresh</option>
+                    <option value="frozen">Frozen</option>
+                    <option value="organic">Organic</option>
+                </select>
+            </div>
+            <!-- Farmer summary section -->
+            <div class="form-group">
+                <label>View Farmer Summary:</label>
+                <select id="farmer-summary-select">
+                    <option value="">Select Farmer</option>
+                </select>
+            </div>
+            <!-- Date range summary -->
+            <div class="form-group">
+                <label>Date Range Summary:</label>
+                <div class="date-range-inputs">
+                    <input type="date" id="start-date">
+                    <input type="date" id="end-date">
+                </div>
+            </div>
+        </form>
+        <div id="summary-results">
+            <!-- Results will be displayed here -->
+        </div>
+    </div>
+    <!--  js file  -->
+    <script src="script.js"></script>
+</body>
+</html>
